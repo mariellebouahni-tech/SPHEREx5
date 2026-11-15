@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorer | SPHEREx HUNTER</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #05091F;
+    color: white;
+}
+
+/* HEADER */
+
+header {
+    min-height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    gap: 15px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #8545FF;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+button {
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+nav button {
+    padding: 13px 15px;
+    background: transparent;
+    border-radius: 15px;
+}
+
+nav button.active {
+    background: linear-gradient(90deg,#5515FF,#174BFF);
+    box-shadow: 0 0 15px #5515FF;
+}
+
+/* PRESENTATION */
+
+.intro {
+    padding: 45px 5%;
+    background: linear-gradient(120deg,#11123A,#05091F);
+    border-bottom: 1px solid #252A58;
+}
+
+.intro h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.intro h1 span {
+    color: #A34CFF;
+}
+
+.intro p {
+    color: #C8CCE8;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 750px;
+}
+
+/* RECHERCHE */
+
+.recherche {
+    padding: 30px 5%;
+}
+
+.recherche h2 {
+    font-size: 23px;
+    margin-bottom: 18px;
+}
+
+.barre-recherche {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.barre-recherche input,
+.barre-recherche select {
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #414879;
+    background: #111936;
+    color: white;
+    font-size: 15px;
+}
+
+.barre-recherche input {
+    flex: 1;
+    min-width: 180px;
+}
+
+.barre-recherche select {
+    min-width: 170px;
+}
+
+/* INFORMATIONS */
+
+.infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.infos p {
+    color: #B8C0E7;
+    font-size: 14px;
+}
+
+/* SELECTION */
+
+.selection {
+    margin: 10px 5% 20px;
+    padding: 18px;
+    background: #111936;
+    border: 1px solid #454B83;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.selection p {
+    color: #C8CCE8;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.selection strong {
+    color: #BD8AFF;
+}
+
+.selection button {
+    padding: 13px 20px;
+    border-radius: 12px;
+    background: linear-gradient(90deg,#5515FF,#174BFF);
+}
+
+.selection button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* GALERIE */
+
+.galerie {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+    padding: 15px 5% 50px;
+}
+
+.observation {
+    background: linear-gradient(145deg,#121A3A,#090E25);
+    border: 1px solid #424B87;
+    border-radius: 17px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.observation:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 18px rgba(103,54,255,0.3);
+}
+
+.image-observation {
+    width: 100%;
+    height: 210px;
+    background: radial-gradient(circle,#45317D,#10152F 65%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-observation img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    text-align: center;
+    color: #C6B5FF;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.image-placeholder span {
+    display: block;
+    font-size: 45px;
+}
+
+.contenu-observation {
+    padding: 20px;
+}
+
+.badge-demo {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #30205D;
+    color: #CBA6FF;
+    font-size: 11px;
+    margin-bottom: 12px;
+}
+
+.contenu-observation h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.contenu-observation p {
+    color: #BFC5E1;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.bouton-voir {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    border-radius: 12px;
+    background: linear-gradient(90deg,#5515FF,#174BFF);
+    font-size: 14px;
+}
+
+.bouton-selection {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 12px;
+    background: #171F45;
+    border: 1px solid #626B9E;
+    font-size: 14px;
+}
+
+.bouton-selection.selected {
+    background: #38206F;
+    border-color: #A66AFF;
+    color: #D9BDFF;
+}
+
+.bouton-selection:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* MESSAGE VIDE */
+
+.message-vide {
+    display: none;
+    text-align: center;
+    padding: 35px;
+    color: #C8CCE8;
+    grid-column: 1/-1;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 25px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    color: #AEB5D5;
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .galerie {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px) {
+
+    .intro h1 {
+        font-size: 29px;
+    }
+
+    .galerie {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .recherche {
+        padding: 25px 15px;
+    }
+
+    .infos {
+        padding: 15px;
+    }
+
+    .selection {
+        margin: 10px 15px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        📡SPHEREx HUNTER
+    </div>
+
+    <nav>
+
+        <button onclick="location.href='index.html'">
+            Accueil
+        </button>
+
+        <button class="active">
+            Explorer
+        </button>
+
+        <button onclick="location.href='comparer.html'">
+            Comparer
+        </button>
+
+        <button onclick="location.href='archives.html'">
+            Archives
+        </button>
+
+        <button onclick="location.href='profil.html'">
+            Mon Profil
+        </button>
+
+        <button onclick="location.href='détecter.html'">
+            Détecter
+        </button>
+
+    </nav>
+
+</header>
+
+<!-- INTRODUCTION -->
+
+<section class="intro">
+
+    <h1>Explorez le <span>ciel</span></h1>
+
+    <p>
+        Découvrez les observations astronomiques de SPHEREx.
+        Parcourez les images, explorez les différentes régions
+        du ciel et préparez-vous à rechercher d'éventuelles anomalies.
+    </p>
+
+</section>
+
+<!-- RECHERCHE -->
+
+<section class="recherche">
+
+    <h2>Rechercher une observation</h2>
+
+    <div class="barre-recherche">
+
+        <input
+            type="search"
+            id="recherche"
+            placeholder="Rechercher une observation..."
+        >
+
+        <select id="categorie">
+
+            <option value="tous">Toutes les catégories</option>
+            <option value="etoile">Étoiles</option>
+            <option value="galaxie">Galaxies</option>
+            <option value="asteroide">Astéroïdes</option>
+            <option value="comete">Comètes</option>
+
+        </select>
+
+    </div>
+
+</section>
+
+<!-- INFORMATIONS -->
+
+<div class="infos">
+
+    <h2>Galerie astronomique</h2>
+
+    <p id="nombre-resultats">
+        3 observations de démonstration
+    </p>
+
+</div>
+
+<!-- ZONE DE SELECTION -->
+
+<div class="selection">
+
+    <p id="compteur">
+        <strong>0 / 2 images sélectionnées</strong>
+        <br>
+        Choisissez deux observations pour les comparer.
+    </p>
+
+    <button id="boutonSelection"
+        onclick="envoyerVersComparer()"
+        disabled>
+        Comparer les images →
+    </button>
+
+</div>
+
+<!-- GALERIE -->
+
+<section class="galerie" id="galerie">
+
+    <!-- OBSERVATION 1 -->
+
+    <article class="observation"
+        data-categorie="etoile">
+
+        <div class="image-observation">
+
+            <img
+                src="../SPHEREx/spherex-4.jpg"
+                alt="Champ d'étoiles"
+            >
+
+        </div>
+
+        <div class="contenu-observation">
+
+            <span class="badge-demo">DÉMONSTRATION</span>
+
+            <h3>Champ d'étoiles</h3>
+
+            <p>Catégorie : Étoiles</p>
+
+            <p>Mission : SPHEREx</p>
+
+            <p>Observation : Exemple de présentation</p>
+
+            <button class="bouton-voir"
+                onclick="ouvrirObservation('etoile')">
+                Explorer cette observation →
+            </button>
+
+            <button class="bouton-selection"
+                onclick="selectionnerImage(this)">
+                + Sélectionner pour comparer
+            </button>
+
+        </div>
+
+    </article>
+
+    <!-- OBSERVATION 2 -->
+
+    <article class="observation"
+        data-categorie="galaxie">
+
+        <div class="image-observation">
+
+            <img
+                src="../SPHEREx/spherex-2.jpg"
+                alt="Région galactique"
+            >
+
+        </div>
+
+        <div class="contenu-observation">
+
+            <span class="badge-demo">DÉMONSTRATION</span>
+
+            <h3>Région galactique</h3>
+
+            <p>Catégorie : Galaxies</p>
+
+            <p>Mission : SPHEREx</p>
+
+            <p>Observation : Exemple de présentation</p>
+
+            <button class="bouton-voir"
+                onclick="ouvrirObservation('galaxie')">
+                Explorer cette observation →
+            </button>
+
+            <button class="bouton-selection"
+                onclick="selectionnerImage(this)">
+                + Sélectionner pour comparer
+            </button>
+
+        </div>
+
+    </article>
+
+    <!-- OBSERVATION 3 -->
+
+    <article class="observation"
+        data-categorie="comete">
+
+        <div class="image-observation">
+
+            <div class="image-placeholder">
+                <span>☄️</span>
+                Image astronomique à ajouter
+            </div>
+
+        </div>
+
+        <div class="contenu-observation">
+
+            <span class="badge-demo">DÉMONSTRATION</span>
+
+            <h3>Objet en mouvement</h3>
+
+            <p>Catégorie : Comètes</p>
+
+            <p>Mission : SPHEREx</p>
+
+            <p>Observation : Exemple de présentation</p>
+
+            <button class="bouton-voir"
+                onclick="ouvrirObservation('comete')">
+                Explorer cette observation →
+            </button>
+
+            <button class="bouton-selection" disabled>
+                Image indisponible
+            </button>
+
+        </div>
+
+    </article>
+
+    <div class="message-vide" id="message-vide">
+        Aucune observation ne correspond à ta recherche.
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    PLANET X HUNTER |
+    Explorer le ciel, comprendre l'univers. ✦
+
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// RECHERCHE ET FILTRAGE
+
+const recherche = document.getElementById("recherche");
+const categorie = document.getElementById("categorie");
+
+const observations = document.querySelectorAll(".observation");
+
+function filtrerObservations() {
+
+    const texte = recherche.value.toLowerCase();
+    const type = categorie.value;
+
+    let nombre = 0;
+
+    observations.forEach(observation => {
+
+        const contenu = observation.textContent.toLowerCase();
+
+        const correspondTexte = contenu.includes(texte);
+
+        const correspondCategorie =
+            type === "tous" ||
+            observation.dataset.categorie === type;
+
+        if (correspondTexte && correspondCategorie) {
+
+            observation.style.display = "block";
+            nombre++;
+
+        } else {
+
+            observation.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("nombre-resultats").textContent =
+        nombre + " observation(s) trouvée(s)";
+
+    document.getElementById("message-vide").style.display =
+        nombre === 0 ? "block" : "none";
+
+}
+
+recherche.addEventListener("input", filtrerObservations);
+
+categorie.addEventListener("change", filtrerObservations);
+
+
+// SELECTION DES IMAGES
+
+let imagesSelectionnees = [];
+
+function selectionnerImage(bouton) {
+
+    const carte = bouton.closest(".observation");
+    const image = carte.querySelector(".image-observation img");
+
+    if (!image || !image.getAttribute("src")) {
+        return;
+    }
+
+    const chemin = image.src;
+
+    const nom = carte.querySelector("h3").textContent;
+
+    const dejaSelectionnee = imagesSelectionnees.findIndex(
+        element => element.image === chemin
+    );
+
+    // RETIRER UNE IMAGE
+
+    if (dejaSelectionnee !== -1) {
+
+        imagesSelectionnees.splice(dejaSelectionnee, 1);
+
+        bouton.classList.remove("selected");
+
+        bouton.textContent = "+ Sélectionner pour comparer";
+
+    }
+
+    // AJOUTER UNE IMAGE
+
+    else {
+
+        if (imagesSelectionnees.length >= 2) {
+
+            alert("Tu peux sélectionner seulement deux images.");
+
+            return;
+
+        }
+
+        imagesSelectionnees.push({
+
+            image: chemin,
+            nom: nom,
+            date: ""
+
+        });
+
+        bouton.classList.add("selected");
+
+        bouton.textContent = "✓ Image sélectionnée";
+
+    }
+
+    actualiserSelection();
+
+}
+
+
+// ACTUALISER LE COMPTEUR
+
+function actualiserSelection() {
+
+    const nombre = imagesSelectionnees.length;
+
+    document.getElementById("compteur").innerHTML =
+        "<strong>" + nombre + " / 2 images sélectionnées</strong>" +
+        "<br>" +
+        (nombre === 2
+            ? "Tes deux observations sont prêtes !"
+            : "Choisis " + (2 - nombre) + " autre(s) image(s).");
+
+    document.getElementById("boutonSelection").disabled =
+        nombre !== 2;
+
+}
+
+
+// ENVOYER LES IMAGES VERS COMPARER
+
+function envoyerVersComparer() {
+
+    if (imagesSelectionnees.length !== 2) {
+
+        alert("Sélectionne exactement deux images.");
+
+        return;
+
+    }
+
+    const donnees = {
+
+        imageA: imagesSelectionnees[0].image,
+
+        nomA: imagesSelectionnees[0].nom,
+
+        dateA: imagesSelectionnees[0].date,
+
+        imageB: imagesSelectionnees[1].image,
+
+        nomB: imagesSelectionnees[1].nom,
+
+        dateB: imagesSelectionnees[1].date
+
+    };
+
+    localStorage.setItem(
+        "planetX_comparaison",
+        JSON.stringify(donnees)
+    );
+
+    window.location.href = "comparer.html";
+
+}
+
+
+// OUVRIR UNE OBSERVATION
+
+function ouvrirObservation(type) {
+
+    window.location.href =
+        "observation.html?type=" + type;
+
+}
+
+</script>
+
+</body>
+</html>
